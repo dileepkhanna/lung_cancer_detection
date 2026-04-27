@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lung Cancer Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lung Cancer Detection System</h1>
+            <p>Hybrid LNN AI Model | 98.50% Accuracy | ResNet18 + Liquid Neural Network</p>
+        </header>
+
+        <main>
+            <!-- Upload Form -->
+            <div class="upload-section" id="uploadSection">
+                <h2>Upload CT Scan Image</h2>
+                <form id="uploadForm">
+                    <div class="file-input-wrapper">
+                        <input type="file" id="fileInput" name="image" accept="image/*" required>
+                        <label for="fileInput" class="file-label">
+                            <span id="fileName">Choose a file...</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-submit">Analyze Image</button>
+                </form>
+                <p class="hint">Supported formats: PNG, JPG, JPEG</p>
+            </div>
+
+            <!-- Loading -->
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing image...</p>
+            </div>
+
+            <!-- Results -->
+            <div class="results" id="results" style="display: none;">
+                <h2>Analysis Results</h2>
+                
+                <div class="result-box">
+                    <div class="prediction">
+                        <h3>Prediction:</h3>
+                        <div class="prediction-value" id="predictionValue">-</div>
+                    </div>
+                    
+                    <div class="confidence">
+                        <h3>Confidence:</h3>
+                        <div class="confidence-value" id="confidenceValue">-</div>
+                    </div>
+                </div>
+
+                <div class="probabilities">
+                    <h3>Detailed Probabilities:</h3>
+                    <table>
+                        <tr>
+                            <td>Cancer:</td>
+                            <td id="cancerProb">-</td>
+                        </tr>
+                        <tr>
+                            <td>Normal:</td>
+                            <td id="normalProb">-</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="disclaimer">
+                    <strong>Disclaimer:</strong> This is a research tool. Always consult medical professionals for diagnosis.
+                </div>
+
+                <button onclick="resetForm()" class="btn-reset">Analyze Another Image</button>
+            </div>
+
+            <!-- Model Performance Metrics -->
+            <div class="metrics-section">
+                <h2>Model Performance Metrics</h2>
+                
+                <!-- Overall Metrics -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Test Accuracy</div>
+                        <div class="metric-value">98.50%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Precision (Cancer)</div>
+                        <div class="metric-value">98.79%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Recall (Cancer)</div>
+                        <div class="metric-value">98.85%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">F1-Score (Cancer)</div>
+                        <div class="metric-value">98.82%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">AUC-ROC</div>
+                        <div class="metric-value">99.50%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total Samples</div>
+                        <div class="metric-value">5,319</div>
+                    </div>
+                </div>
+
+                <!-- Per-Class Metrics Table -->
+                <div class="class-metrics">
+                    <h3>Per-Class Performance</h3>
+                    <table class="metrics-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Precision</th>
+                                <th>Recall</th>
+                                <th>F1-Score</th>
+                                <th>Support</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Normal</strong></td>
+                                <td>97.98%</td>
+                                <td>97.88%</td>
+                                <td>97.93%</td>
+                                <td>1,933</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cancer</strong></td>
+                                <td>98.79%</td>
+                                <td>98.85%</td>
+                                <td>98.82%</td>
+                                <td>3,386</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Evaluation Graphics -->
+                <div class="graphics-section">
+                    <h3>Evaluation Graphics</h3>
+                    
+                    <div class="graphics-grid">
+                        <div class="graphic-item">
+                            <h4>Confusion Matrix</h4>
+                            <img src="/results/confusion_matrix.png" alt="Confusion Matrix">
+                            <p class="graphic-caption">True Positives: 3,347 | True Negatives: 1,892<br>False Positives: 41 | False Negatives: 39</p>
+                        </div>
+                        
+                        <div class="graphic-item">
+                            <h4>ROC Curve</h4>
+                            <img src="/results/roc_curve.png" alt="ROC Curve">
+                            <p class="graphic-caption">AUC = 0.995 (Excellent discrimination)</p>
+                        </div>
+                        
+                        <div class="graphic-item">
+                            <h4>Training Accuracy</h4>
+                            <img src="/results/training_accuracy_combined.png" alt="Training Accuracy">
+                            <p class="graphic-caption">Training vs Validation Accuracy over 35 epochs</p>
+                        </div>
+                        
+                        <div class="graphic-item">
+                            <h4>Loss Curve</h4>
+                            <img src="/results/loss_curve.png" alt="Loss Curve">
+                            <p class="graphic-caption">Training and Validation Loss convergence</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Info -->
+            <div class="info">
+                <h3>Model Information</h3>
+                <table>
+                    <tr>
+                        <td>Model:</td>
+                        <td>Hybrid LNN (ResNet18 + LTC)</td>
+                    </tr>
+                    <tr>
+                        <td>Architecture:</td>
+                        <td>ResNet18 + Liquid Time-Constant Network</td>
+                    </tr>
+                    <tr>
+                        <td>Parameters:</td>
+                        <td>11.8M</td>
+                    </tr>
+                    <tr>
+                        <td>Dataset:</td>
+                        <td>LIDC-IDRI (53,187 images)</td>
+                    </tr>
+                    <tr>
+                        <td>Training Epochs:</td>
+                        <td>35 (Early Stopping)</td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+
+        <footer>
+            <p>Lung Cancer Detection System | For Research and Educational Purposes Only</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

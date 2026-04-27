@@ -6,10 +6,14 @@ import os
 import sys
 
 # Add web_app directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'web_app'))
+web_app_path = os.path.join(os.path.dirname(__file__), 'web_app')
+sys.path.insert(0, web_app_path)
+
+# Change to web_app directory for relative imports
+os.chdir(web_app_path)
 
 # Import the Flask app from web_app/app.py
-from web_app.app import app
+from app import app
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))

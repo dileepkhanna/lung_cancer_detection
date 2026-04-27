@@ -75,3 +75,7 @@ htmlcov/
 
 # OS
 Thumbs.db
+
+# Azure
+.azure/
+*.publishsettings

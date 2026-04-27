@@ -40,13 +40,17 @@ Open browser: http://localhost:5000
 
 ## Deployment
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions on deploying to Render.
+### Azure (Recommended)
+See [AZURE_DEPLOYMENT.md](AZURE_DEPLOYMENT.md) for detailed Azure deployment instructions.
 
-### Quick Deploy to Render
+**Quick Azure Deploy:**
+1. Create Azure Web App (Python 3.10, Free F1 tier)
+2. Set startup command: `bash startup.sh`
+3. Deploy from GitHub or Local Git
+4. Access at: `https://your-app-name.azurewebsites.net`
 
-1. Push code to GitHub
-2. Connect repository to Render
-3. Deploy automatically
+### Render
+See [DEPLOYMENT.md](DEPLOYMENT.md) for Render deployment instructions.
 
 ## Project Structure
 
@@ -60,9 +64,10 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions on deploying to Ren
 │   ├── model_resnet_ltc.py
 │   └── ...
 ├── model/               # Trained models (excluded from git)
+├── startup.sh           # Azure startup script
 ├── requirements.txt     # Python dependencies
 ├── .gitignore          # Git ignore rules
-└── DEPLOYMENT.md       # Deployment guide
+└── AZURE_DEPLOYMENT.md # Azure deployment guide
 ```
 
 ## Technology Stack
@@ -70,7 +75,7 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions on deploying to Ren
 - **Backend**: Flask, PyTorch
 - **Frontend**: HTML, CSS, JavaScript
 - **Model**: Hybrid LNN (ResNet18 + LTC)
-- **Deployment**: Render (free tier)
+- **Deployment**: Azure App Service / Render
 
 ## Model Information
 

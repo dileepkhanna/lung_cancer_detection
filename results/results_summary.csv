@@ -1,0 +1,6 @@
+Metric,Value
+Training Accuracy,98.43%
+Validation Accuracy,98.35%
+Test Accuracy,98.50%
+Best Epoch,35
+Total Epochs,35
